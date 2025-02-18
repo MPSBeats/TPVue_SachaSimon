@@ -7,6 +7,10 @@ const cartStore = useCartStore();
 
 const cart = computed(() => cartStore.cart);
 
+const total = computed(() =>
+  cart.value.reduce((sum, item) => sum + item.plat.price * item.quantity, 0)
+);
+
 onMounted(() => {
   cartStore.loadCart();
 });
@@ -34,11 +38,14 @@ const supprimerDuPanier = (platId: number) => {
         </div>
       </li>
     </ul>
+    <div class="box">
+      <p class="title is-4">Total : {{ total }} €</p>
+    </div>
   </main>
 </template>
 
 <style scoped>
-.main {
+.container {
   padding: 2rem;
 }
 
